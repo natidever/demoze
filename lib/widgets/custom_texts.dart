@@ -13,7 +13,10 @@ Widget SubText(String text) {
   return Text(
     text,
     style: GoogleFonts.lexend(
-        fontSize: 14, fontWeight: FontWeight.w300, color: subTextColor),
+        height: 2,
+        fontSize: 14,
+        fontWeight: FontWeight.w300,
+        color: subTextColor),
   );
 }
 

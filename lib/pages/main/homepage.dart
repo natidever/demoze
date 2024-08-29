@@ -6,6 +6,7 @@ import 'package:demoze/widgets/layout_helpers.dart';
 import 'package:demoze/widgets/pichart_badget.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Homepage extends StatefulWidget {
@@ -95,13 +96,18 @@ class _HomepageState extends State<Homepage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 // crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                      width: 111,
-                      height: 50,
-                      child: PrimaryButton(
-                          color: primaryColor,
-                          text: "Up Coming",
-                          textColor: white)),
+                  GestureDetector(
+                    onTap: () {
+                      Get.toNamed('/add_employee');
+                    },
+                    child: Container(
+                        width: 111,
+                        height: 50,
+                        child: PrimaryButton(
+                            color: primaryColor,
+                            text: "Up Coming",
+                            textColor: white)),
+                  ),
                   HorizontalSpace(20),
                   NormalAppText(
                       fontWeight: FontWeight.w300, fontSize: 14, text: "Past"),
