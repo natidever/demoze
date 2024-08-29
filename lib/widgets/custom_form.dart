@@ -1,47 +1,122 @@
 import 'package:demoze/controller/form_controller.dart';
+import 'package:demoze/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CustomForm extends StatelessWidget {
-  TextEditingController controller;
-  bool isPasswordVissible;
+// ignore: must_be_immutable
+class CustomForm extends StatefulWidget {
+  TextEditingController? controller;
+  bool? isPasswordVissible;
+  String? labelText;
 
-  CustomForm(this.controller, this.isPasswordVissible);
+  CustomForm({this.labelText, this.controller, this.isPasswordVissible});
+
+  @override
+  State<CustomForm> createState() => _CustomFormState();
+}
+
+class _CustomFormState extends State<CustomForm> {
+  @override
+  void initState() {
+    super.initState();
+    _focusNode.addListener(() {
+      setState(() {
+        _isFocused = _focusNode.hasFocus;
+      });
+    });
+  }
+
+  final FocusNode _focusNode = FocusNode();
+
+  bool _isFocused = false;
 
   final formController = Get.find<FormController>();
+
+  Widget _buildLabel() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 100.0),
+      child: Text(
+        'Password',
+        style: GoogleFonts.lexend(
+          textStyle: TextStyle(
+            textBaseline: TextBaseline.ideographic,
+            fontWeight: FontWeight.w300,
+            fontSize: 14,
+            color: _isFocused
+                ? Colors.blue
+                : Colors.grey, // Label color based on focus
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      obscureText: formController.isPasswordVissible.isTrue ? false : true,
-      // obscureText: true,
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(20),
-          border: InputBorder.none,
-          prefixIconConstraints: BoxConstraints(
-            maxHeight: 30,
+    return Stack(
+      children: [
+        // TextFormField
+        TextFormField(
+          style: GoogleFonts.lexend(
+            fontSize: 14,
+            color: Color.fromRGBO(16, 19, 23, 1),
+            fontWeight: FontWeight.w300,
           ),
-          prefixIcon: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18.0),
-            child: Image.asset('assets/images/icons/password.png'),
+          focusNode: _focusNode,
+          controller: widget.controller,
+          obscureText: widget.isPasswordVissible == true ? false : true,
+          decoration: InputDecoration(
+            // contentPadding: EdgeInsets.fromLTRB(8, 90, 0, 0), // Adjust padding
+            contentPadding: EdgeInsets.fromLTRB(15, 50, 0, 0), // Ad ,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: Color.fromRGBO(218, 218, 218, 1)),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: Colors.blue),
+            ),
+            suffixIcon: IconButton(
+                onPressed: () {
+                  setState(() {
+                    formController.TogglePasswordVissiblity();
+                    print(formController.isPasswordVissible);
+                  });
+                },
+                icon: widget.isPasswordVissible == true
+                    ? Icon(
+                        formController.isPasswordVissible == true
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      )
+                    : Text('')),
+            border: InputBorder.none,
           ),
-          // prefixIconColor: subTextColor,
-          suffixIcon: IconButton(
-              onPressed: () {
-                formController.TogglePasswordVissiblity();
-              },
-              icon: Icon(
-                  // color: subTextColor,
-                  //Toggle between two icons based on the password is vissible or not
-                  formController.isPasswordVissible.value == false
-                      ? Icons.visibility
-                      : Icons.visibility_off)),
-          hintStyle: GoogleFonts.sourceSans3(
-            fontSize: 18,
-            fontWeight: FontWeight.w400,
+        ),
+        // Label always visible
+        Positioned(
+          left: 16,
+          top: 8, // Adjust position based on focus
+          child: AnimatedOpacity(
+            opacity: 1.0, // Always visible
+            duration: Duration(milliseconds: 200),
+            child: Text(
+              widget.labelText ?? '',
+              style: GoogleFonts.lexend(
+                textStyle: TextStyle(
+                  fontWeight: FontWeight.w300,
+                  fontSize: 11,
+                  color: _isFocused
+                      ? Colors.blue
+                      : const Color.fromARGB(
+                          255, 0, 0, 0), // Change color based on focus
+                ),
+              ),
+            ),
           ),
-          hintText: 'Password'),
+        ),
+      ],
     );
-    ();
   }
 }

@@ -18,7 +18,7 @@ class AppRoutes {
   static List<GetPage> routes = [
     GetPage(
       name: login,
-      page: () => const Login(),
+      page: () => Login(),
     ),
   ];
 }
