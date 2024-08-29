@@ -21,20 +21,20 @@ void main() {
   /// if the app encounter non-flutter error custom page is used
   /// to handel the error gracefully
 
-  FlutterError.onError = (FlutterErrorDetails details) {
-    // Handle synchronous errors globally
-    print('Flutter Error: ${details.exceptionAsString()}');
+  // FlutterError.onError = (FlutterErrorDetails details) {
+  //   // Handle synchronous errors globally
+  //   print('Flutter Error: ${details.exceptionAsString()}');
 
-    // Redirect to custom error page using GetX
-    if (details.exception is! FlutterError) {
-      print('uuuuuuuuu${details.exception}');
-      // Use GetX to navigate to the error page
-      print('${details.exceptionAsString()}');
-      Get.to(() => GlobalErrorScreen(
-            errorMessage: details.exceptionAsString(),
-          ));
-    }
-  };
+  //   // Redirect to custom error page using GetX
+  //   if (details.exception is! FlutterError) {
+  //     print('Exceptions:${details.exception}');
+  //     // Use GetX to navigate to the error page
+  //     print('${details.exceptionAsString()}');
+  //     Get.to(() => GlobalErrorScreen(
+  //           errorMessage: details.exceptionAsString(),
+  //         ));
+  //   }
+  // };
 }
 
 class MyApp extends StatelessWidget {
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
         title: 'News App',
         debugShowCheckedModeBanner: false,
         // navigatorKey: navigatorKey,
-        initialRoute: AppRoutes.login,
+        initialRoute: AppRoutes.signup,
         getPages: AppRoutes.routes);
   }
 }

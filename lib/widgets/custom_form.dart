@@ -65,7 +65,7 @@ class _CustomFormState extends State<CustomForm> {
           ),
           focusNode: _focusNode,
           controller: widget.controller,
-          obscureText: widget.isPasswordVissible == true ? false : true,
+          obscureText: formController.isPasswordVissible == true ? true : false,
           decoration: InputDecoration(
             // contentPadding: EdgeInsets.fromLTRB(8, 90, 0, 0), // Adjust padding
             contentPadding: EdgeInsets.fromLTRB(15, 50, 0, 0), // Ad ,
@@ -86,6 +86,7 @@ class _CustomFormState extends State<CustomForm> {
                 },
                 icon: widget.isPasswordVissible == true
                     ? Icon(
+                        color: black,
                         formController.isPasswordVissible == true
                             ? Icons.visibility
                             : Icons.visibility_off,

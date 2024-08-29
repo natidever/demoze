@@ -1,4 +1,4 @@
-import 'package:demoze/pages/authentications/login.dart';
+import 'package:demoze/pages/authentications/signup.dart';
 import 'package:get/get.dart';
 
 class AppRoutes {
@@ -6,7 +6,7 @@ class AppRoutes {
   static const home = '/home';
   static const details = '/details';
   static const onboarding = '/onboarding';
-  static const login = '/login';
+  static const signup = '/signup';
   static const base_screen = '/base_screen';
   static const bookmark = '/bookmark';
   static const discover = '/discover';
@@ -17,8 +17,8 @@ class AppRoutes {
   // Define the routes map u
   static List<GetPage> routes = [
     GetPage(
-      name: login,
-      page: () => Login(),
+      name: signup,
+      page: () => Signup(),
     ),
   ];
 }
