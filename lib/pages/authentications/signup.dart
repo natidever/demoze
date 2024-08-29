@@ -112,14 +112,17 @@ class _LoginState extends State<Signup> {
                 ),
               ),
               Obx(() {
-                return PrimaryButton(
-                    text: "Sign up",
-                    color: _isFormValid.value == true
-                        ? primaryColor
-                        : inactiveButtonColor,
-                    textColor: _isFormValid.value
-                        ? white
-                        : inactiveTextColorForButton);
+                return GestureDetector(
+                  onTap: () => Get.toNamed('/registration'),
+                  child: PrimaryButton(
+                      text: "Sign up",
+                      color: _isFormValid.value == true
+                          ? primaryColor
+                          : inactiveButtonColor,
+                      textColor: _isFormValid.value
+                          ? white
+                          : inactiveTextColorForButton),
+                );
               }),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
