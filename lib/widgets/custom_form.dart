@@ -9,8 +9,10 @@ class CustomForm extends StatefulWidget {
   TextEditingController? controller;
   bool? isPasswordVissible;
   String? labelText;
+  void Function(String)? ontap;
 
-  CustomForm({this.labelText, this.controller, this.isPasswordVissible});
+  CustomForm(
+      {this.ontap, this.labelText, this.controller, this.isPasswordVissible});
 
   @override
   State<CustomForm> createState() => _CustomFormState();
@@ -58,6 +60,7 @@ class _CustomFormState extends State<CustomForm> {
       children: [
         // TextFormField
         TextFormField(
+          onTap: () => widget.ontap,
           style: GoogleFonts.lexend(
             fontSize: 14,
             color: Color.fromRGBO(16, 19, 23, 1),

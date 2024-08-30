@@ -40,6 +40,7 @@ dependencies:
   google_fonts: ^6.2.1               # Allows easy integration of Google Fonts into Flutter apps.
   google_nav_bar: ^5.0.6 
   fl_chart: ^0.68.0
+  syncfusion_flutter_datepicker: ^26.2.11
 
 
 

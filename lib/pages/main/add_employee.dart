@@ -1,3 +1,4 @@
+import 'package:demoze/controller/form_controller.dart';
 import 'package:demoze/utils/constants.dart';
 import 'package:demoze/widgets/custom_buttons.dart';
 import 'package:demoze/widgets/custom_form.dart';
@@ -56,8 +57,10 @@ class _AddEmployeeState extends State<AddEmployee> {
         _taxableEarningsController.text.isNotEmpty &&
         _startingDateOfSalaryController.text.isNotEmpty;
 
-    print("value: ${_isFormValid.value}");
+    print("value_addemploye: ${_isFormValid.value}");
   }
+
+  final formController = Get.find<FormController>();
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +117,7 @@ class _AddEmployeeState extends State<AddEmployee> {
                   width: 335,
                   height: 56,
                   child: CustomForm(
-                    // controller: _emailController,
+                    controller: _employeeNameController,
                     isPasswordVissible: false,
                     labelText: "Employee name",
                   ),
@@ -126,7 +129,7 @@ class _AddEmployeeState extends State<AddEmployee> {
                   width: 335,
                   height: 56,
                   child: CustomForm(
-                    // controller: _emailController,
+                    controller: _emailAddressController,
                     isPasswordVissible: false,
                     labelText: "Email address",
                   ),
@@ -138,7 +141,7 @@ class _AddEmployeeState extends State<AddEmployee> {
                   width: 335,
                   height: 56,
                   child: CustomForm(
-                    // controller: _emailController,
+                    controller: _phoneNumberController,
                     isPasswordVissible: false,
                     labelText: "Phone number",
                   ),
@@ -150,7 +153,7 @@ class _AddEmployeeState extends State<AddEmployee> {
                   width: 335,
                   height: 56,
                   child: CustomForm(
-                    // controller: _emailController,
+                    controller: _tinNumberController,
                     isPasswordVissible: false,
                     labelText: "Tin number",
                   ),
@@ -162,7 +165,7 @@ class _AddEmployeeState extends State<AddEmployee> {
                   width: 335,
                   height: 56,
                   child: CustomForm(
-                    // controller: _emailController,
+                    controller: _grossSalaryController,
                     isPasswordVissible: false,
                     labelText: "Gross salary",
                   ),
@@ -174,7 +177,7 @@ class _AddEmployeeState extends State<AddEmployee> {
                   width: 335,
                   height: 56,
                   child: CustomForm(
-                    // controller: _emailController,
+                    controller: _taxableEarningsController,
                     isPasswordVissible: false,
                     labelText: "Taxable  earnings",
                   ),
@@ -186,7 +189,8 @@ class _AddEmployeeState extends State<AddEmployee> {
                   width: 335,
                   height: 56,
                   child: CustomForm(
-                    // controller: _emailController,
+                    // ontap: formController.showDatePicker(context),
+                    controller: _startingDateOfSalaryController,
                     isPasswordVissible: false,
                     labelText: "Starting date of salary",
                   ),
