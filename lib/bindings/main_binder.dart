@@ -1,3 +1,4 @@
+import 'package:Demoz/controller/company_controller.dart';
 import 'package:Demoz/controller/form_controller.dart';
 import 'package:Demoz/controller/payment.dart';
 import 'package:Demoz/widgets/custom_form.dart';
@@ -13,6 +14,7 @@ class MainBinder extends Bindings {
   void dependencies() {
     Get.put(FormController());
     Get.put(paymentController());
+    Get.lazyPut(() => CompanyController());
     // Get.put(HomeController());
     // Get.put(DiscoverController());
     // Get.put(CusomSearchController());
