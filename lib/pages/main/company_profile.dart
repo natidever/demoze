@@ -84,18 +84,20 @@ class CompanyProfile extends StatelessWidget {
                 ),
                 VerticalSpace(10),
                 Padding(
-                  padding: const EdgeInsets.only(left: 100.0),
-                  child: NormalAppText(
-                      text: "${company.name}",
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20),
+                  padding: const EdgeInsets.only(left: 0.0),
+                  child: Center(
+                    child: NormalAppText(
+                        text: "${company.name}",
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20),
+                  ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 150.0),
-                  child: SubText("HR Manager"),
+                  padding: const EdgeInsets.only(left: 0.0),
+                  child: Center(child: SubText("HR Manager")),
                 ),
                 NormalAppText(
-                    text: "Company  Email",
+                    text: "Company Bank Account",
                     fontSize: 15,
                     fontWeight: FontWeight.w500),
                 VerticalSpace(8),
@@ -119,9 +121,10 @@ class CompanyProfile extends StatelessWidget {
                           maxHeight: 30,
                         ),
                         prefixIcon: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                          child: Image.asset('assets/icons/email.png'),
-                        ),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 18.0),
+                            // child: Image.asset('assets/icons/email.png'),
+                            child: Icon(Icons.account_balance)),
                         prefixIconColor: subTextColor,
                         // suffixIcon: IconButton(
                         //     onPressed: () {
@@ -137,7 +140,7 @@ class CompanyProfile extends StatelessWidget {
                             fontSize: 15,
                             fontWeight: FontWeight.w400,
                             color: subTextColor),
-                        hintText: 'XXX@gmail.com'),
+                        hintText: '${company.bankAccount}'),
                   ),
                 ),
                 VerticalSpace(10),

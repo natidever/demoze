@@ -9,10 +9,16 @@ class CustomForm extends StatefulWidget {
   TextEditingController? controller;
   bool? isPasswordVissible;
   String? labelText;
-  void Function(String)? ontap;
-
+  // void Function(String)? ontap;
+  // final Future<void> Function()? ontap;
+  VoidCallback? ontap;
+  String? hintText;
   CustomForm(
-      {this.ontap, this.labelText, this.controller, this.isPasswordVissible});
+      {this.ontap,
+      this.labelText,
+      this.controller,
+      this.isPasswordVissible,
+      this.hintText});
 
   @override
   State<CustomForm> createState() => _CustomFormState();
@@ -60,7 +66,13 @@ class _CustomFormState extends State<CustomForm> {
       children: [
         // TextFormField
         TextFormField(
-          onTap: () => widget.ontap,
+          // onTap: () => widget.ontap,
+          onTap: widget.ontap,
+          // () {
+          //   if (widget.controller != null) {
+          //     formController.showDatePicker(context, widget.controller!);
+          //   }
+          // },
           style: GoogleFonts.lexend(
             fontSize: 14,
             color: Color.fromRGBO(16, 19, 23, 1),
@@ -70,6 +82,8 @@ class _CustomFormState extends State<CustomForm> {
           controller: widget.controller,
           obscureText: formController.isPasswordVissible == true ? true : false,
           decoration: InputDecoration(
+            hintText: widget.hintText,
+            // alignLabelWithHint: true,
             // contentPadding: EdgeInsets.fromLTRB(8, 90, 0, 0), // Adjust padding
             contentPadding: EdgeInsets.fromLTRB(15, 50, 0, 0), // Ad ,
             enabledBorder: OutlineInputBorder(

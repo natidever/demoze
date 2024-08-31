@@ -79,115 +79,117 @@ class EmployeeDetail extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               // DataGrid Implementation
-              Container(
-                width: MediaQuery.of(context).size.width,
-                // height: MediaQuery.of(context).size.height,
-                height: 700,
-                // Adjust as necessary
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  // Optional: add border
-                  // border: Border.all(color: Colors.grey),
-                ),
-                child: ClipRRect(
-                  borderRadius:
-                      BorderRadius.circular(10), // Apply border radius clipping
-                  child: SfDataGrid(
-                    source: EmployeeDataSource(),
-                    columnWidthMode: ColumnWidthMode.fill,
-                    columns: [
-                      GridColumn(
-                        width: 100,
-                        columnName: 'employeeName',
-                        label: Container(
-                          color: Color.fromRGBO(229, 248, 255, 1),
-                          padding: const EdgeInsets.all(8.0),
-                          alignment: Alignment.center,
-                          child: const Text(
-                            'Employee Name',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+              SingleChildScrollView(
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  // height: MediaQuery.of(context).size.height,
+                  height: 700,
+                  // Adjust as necessary
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    // Optional: add border
+                    // border: Border.all(color: Colors.grey),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(
+                        10), // Apply border radius clipping
+                    child: SfDataGrid(
+                      source: EmployeeDataSource(),
+                      columnWidthMode: ColumnWidthMode.fill,
+                      columns: [
+                        GridColumn(
+                          width: 100,
+                          columnName: 'employeeName',
+                          label: Container(
+                            color: Color.fromRGBO(229, 248, 255, 1),
+                            padding: const EdgeInsets.all(8.0),
+                            alignment: Alignment.center,
+                            child: const Text(
+                              'Employee Name',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
-                      ),
-                      GridColumn(
-                        width: 88,
-                        columnName: 'netSalary',
-                        label: Container(
-                          color: Color.fromRGBO(253, 255, 255, 1),
-                          padding: const EdgeInsets.all(8.0),
-                          alignment: Alignment.center,
-                          child: const Text(
-                            'Net Salary',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                        GridColumn(
+                          width: 88,
+                          columnName: 'netSalary',
+                          label: Container(
+                            color: Color.fromRGBO(253, 255, 255, 1),
+                            padding: const EdgeInsets.all(8.0),
+                            alignment: Alignment.center,
+                            child: const Text(
+                              'Net Salary',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
-                      ),
-                      GridColumn(
-                        width: 77,
-                        columnName: 'taxEarning',
-                        label: Container(
-                          color: Color.fromRGBO(229, 248, 255, 1),
-                          padding: const EdgeInsets.all(8.0),
-                          alignment: Alignment.center,
-                          child: const Text(
-                            'Tax Earnings',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                        GridColumn(
+                          width: 77,
+                          columnName: 'taxEarning',
+                          label: Container(
+                            color: Color.fromRGBO(229, 248, 255, 1),
+                            padding: const EdgeInsets.all(8.0),
+                            alignment: Alignment.center,
+                            child: const Text(
+                              'Tax Earnings',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
-                      ),
-                      GridColumn(
-                        width: 77,
-                        columnName: 'incomeTax',
-                        label: Container(
-                          color: Color.fromRGBO(253, 255, 255, 1),
-                          padding: const EdgeInsets.all(8.0),
-                          alignment: Alignment.center,
-                          child: const Text(
-                            'Income Tax',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                        GridColumn(
+                          width: 77,
+                          columnName: 'incomeTax',
+                          label: Container(
+                            color: Color.fromRGBO(253, 255, 255, 1),
+                            padding: const EdgeInsets.all(8.0),
+                            alignment: Alignment.center,
+                            child: const Text(
+                              'Income Tax',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
-                      ),
-                      GridColumn(
-                        width: 85,
-                        columnName: 'pensionTax',
-                        label: Container(
-                          color: Color.fromRGBO(229, 248, 255, 1),
-                          padding: const EdgeInsets.all(8.0),
-                          alignment: Alignment.center,
-                          child: const Text(
-                            'Pension Tax',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                        GridColumn(
+                          width: 85,
+                          columnName: 'pensionTax',
+                          label: Container(
+                            color: Color.fromRGBO(229, 248, 255, 1),
+                            padding: const EdgeInsets.all(8.0),
+                            alignment: Alignment.center,
+                            child: const Text(
+                              'Pension Tax',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
-                      ),
-                      GridColumn(
-                        width: 77,
-                        columnName: 'grossPay',
-                        label: Container(
-                          color: Color.fromRGBO(253, 255, 255, 1),
-                          padding: const EdgeInsets.all(8.0),
-                          alignment: Alignment.center,
-                          child: const Text(
-                            'Gross Pay',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                        GridColumn(
+                          width: 77,
+                          columnName: 'grossPay',
+                          label: Container(
+                            color: Color.fromRGBO(253, 255, 255, 1),
+                            padding: const EdgeInsets.all(8.0),
+                            alignment: Alignment.center,
+                            child: const Text(
+                              'Gross Pay',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
-                      ),
-                      GridColumn(
-                        width: 77,
-                        columnName: 'action',
-                        label: Container(
-                          color: Color.fromRGBO(229, 248, 255, 1),
-                          padding: const EdgeInsets.all(8.0),
-                          alignment: Alignment.center,
-                          child: const Text(
-                            'Action',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                        GridColumn(
+                          width: 77,
+                          columnName: 'action',
+                          label: Container(
+                            color: Color.fromRGBO(229, 248, 255, 1),
+                            padding: const EdgeInsets.all(8.0),
+                            alignment: Alignment.center,
+                            child: const Text(
+                              'Action',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

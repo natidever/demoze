@@ -1,6 +1,7 @@
 import 'package:Demoz/models/company_table_helper.dart';
 import 'package:Demoz/models/database_helper.dart';
 import 'package:Demoz/models/models.dart';
+import 'package:Demoz/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -8,10 +9,15 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:intl/intl.dart';
 
 class FormController extends GetxController {
   RxBool isPasswordVissible = false.obs;
   RxBool isFormValid = true.obs;
+  Future<void> defaultFunction() {
+    return Future.delayed(Duration.zero);
+  }
 
   void validator() {
     print("Validator called");
@@ -78,29 +84,68 @@ class FormController extends GetxController {
     await dbHelper.insert(company);
   }
 
-  // showDatePicker(BuildContext context) {
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     showDialog(
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return Dialog(
-  //           child: Container(
-  //             height: 400,
-  //             width: 300,
-  //             child: SfDateRangePicker(
-  //               onSelectionChanged: (DateRangePickerSelectionChangedArgs args) {
-  //                 selectedDate.value = args.value.toString().substring(0, 10);
-  //                 Navigator.of(context).pop(); // Close the dialog
-  //               },
-  //               selectionMode: DateRangePickerSelectionMode.single,
-  //               initialSelectedDate: DateTime.now(),
-  //             ),
-  //           ),
-  //         );
-  //       },
-  //     );
-  //   });
-  // }
+  ///
+  TextEditingController startingDateOfSalaryController =
+      TextEditingController();
+
+  Future<void> showDatePicker(
+      BuildContext context, TextEditingController controller) async {
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Select Date'),
+          content: Container(
+            // color: Colors.red,
+            // width: double.maxFinite,
+            width: 400,
+            height: 300,
+            child: SfDateRangePicker(
+              headerStyle: DateRangePickerHeaderStyle(
+                textAlign: TextAlign.center,
+                // backgroundColor: Colors.blue,
+                backgroundColor: primaryColor,
+                textStyle: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              backgroundColor: white,
+              selectionColor: primaryColor,
+              // selectionMode: DateRangePickerSelectionMode.range,
+              selectionMode: DateRangePickerSelectionMode.single,
+              allowViewNavigation: true,
+              view: DateRangePickerView.month,
+              initialDisplayDate:
+                  DateTime.now(), // Show the current month and year
+
+              onSelectionChanged: (DateRangePickerSelectionChangedArgs args) {
+                if (args.value is DateTime) {
+                  controller.text = (args.value as DateTime)
+                      .toLocal()
+                      .toString()
+                      .split(' ')[0];
+                }
+              },
+              // selectionMode: DateRangePickerSelectionMode.single,
+              // selectionMode: DateRangePickerSelectionMode.range,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                'OK',
+                style: TextStyle(fontSize: 14),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   void TogglePasswordVissiblity() {
     print('toggle called');

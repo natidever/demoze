@@ -55,7 +55,7 @@ class _AddEmployeeState extends State<AddEmployee> {
         _tinNumberController.text.isNotEmpty &&
         _grossSalaryController.text.isNotEmpty &&
         _taxableEarningsController.text.isNotEmpty &&
-        _startingDateOfSalaryController.text.isNotEmpty;
+        formController.startingDateOfSalaryController.text.isNotEmpty;
 
     print("value_addemploye: ${_isFormValid.value}");
   }
@@ -190,7 +190,14 @@ class _AddEmployeeState extends State<AddEmployee> {
                   height: 56,
                   child: CustomForm(
                     // ontap: formController.showDatePicker(context),
-                    controller: _startingDateOfSalaryController,
+
+                    // controller: _startingDateOfSalaryController,
+                    controller: formController.startingDateOfSalaryController,
+                    ontap: () => formController.showDatePicker(
+                      context,
+                      formController.startingDateOfSalaryController,
+                    ),
+
                     isPasswordVissible: false,
                     labelText: "Starting date of salary",
                   ),
@@ -251,6 +258,7 @@ class _AddEmployeeState extends State<AddEmployee> {
               Obx(() {
                 return GestureDetector(
                   onTap: () async {
+                    final formControllerS = Get.find<FormController>();
                     final isFormValid =
                         _employeeNameController.text.isNotEmpty &&
                             _emailAddressController.text.isNotEmpty &&
@@ -258,7 +266,8 @@ class _AddEmployeeState extends State<AddEmployee> {
                             _tinNumberController.text.isNotEmpty &&
                             _grossSalaryController.text.isNotEmpty &&
                             _taxableEarningsController.text.isNotEmpty &&
-                            _startingDateOfSalaryController.text.isNotEmpty;
+                            formControllerS
+                                .startingDateOfSalaryController.text.isNotEmpty;
 
                     if (!isFormValid) {
                       // Show an error message if the form is not valid
@@ -281,26 +290,71 @@ class _AddEmployeeState extends State<AddEmployee> {
                     double pensionTax;
 
 // Calculate income tax based on the brackets
+                    // if (taxableEarnings <= 585) {
+                    //   incomeTax = 0.0;
+                    // } else if (taxableEarnings <= 1650) {
+                    //   incomeTax = (taxableEarnings - 585) * 0.10;
+                    // } else if (taxableEarnings <= 3145) {
+                    //   incomeTax =
+                    //       (taxableEarnings - 1650) * 0.15 + (1650 - 585) * 0.1;
+                    // } else if (taxableEarnings <= 5195) {
+                    //   incomeTax = (taxableEarnings - 3145) * 0.20 +
+                    //       (3145 - 1650) * 0.15 +
+                    //       (1650 - 585) * 0.1;
+                    // } else if (taxableEarnings <= 7758) {
+                    //   incomeTax = (taxableEarnings - 5195) * 0.25 +
+                    //       (5195 - 3145) * 0.20 +
+                    //       (3145 - 1650) * 0.15 +
+                    //       (1650 - 585) * 0.1;
+                    // } else if (taxableEarnings <= 10833) {
+                    //   incomeTax = (taxableEarnings - 7758) * 0.30 +
+                    //       (7758 - 5195) * 0.25 +
+                    //       (5195 - 3145) * 0.20 +
+                    //       (3145 - 1650) * 0.15 +
+                    //       (1650 - 585) * 0.1;
+                    // } else {
+                    //   incomeTax = (taxableEarnings - 10833) * 0.35 +
+                    //       (10833 - 7758) * 0.30 +
+                    //       (7758 - 5195) * 0.25 +
+                    //       (5195 - 3145) * 0.20 +
+                    //       (3145 - 1650) * 0.15 +
+                    //       (1650 - 585) * 0.1;
+                    // }
                     if (taxableEarnings <= 600) {
                       incomeTax = 0.0;
                     } else if (taxableEarnings <= 1650) {
                       incomeTax = (taxableEarnings - 600) * 0.10;
                     } else if (taxableEarnings <= 3200) {
-                      incomeTax = (taxableEarnings - 1650) * 0.15 + 105;
+                      incomeTax =
+                          (taxableEarnings - 1650) * 0.15 + (1650 - 600) * 0.10;
                     } else if (taxableEarnings <= 5250) {
-                      incomeTax = (taxableEarnings - 3200) * 0.20 + 420;
+                      incomeTax = (taxableEarnings - 3200) * 0.20 +
+                          (3200 - 1650) * 0.15 +
+                          (1650 - 600) * 0.10;
                     } else if (taxableEarnings <= 7800) {
-                      incomeTax = (taxableEarnings - 5250) * 0.25 + 920;
+                      incomeTax = (taxableEarnings - 5250) * 0.25 +
+                          (5250 - 3200) * 0.20 +
+                          (3200 - 1650) * 0.15 +
+                          (1650 - 600) * 0.10;
+                    } else if (taxableEarnings <= 10900) {
+                      incomeTax = (taxableEarnings - 7800) * 0.30 +
+                          (7800 - 5250) * 0.25 +
+                          (5250 - 3200) * 0.20 +
+                          (3200 - 1650) * 0.15 +
+                          (1650 - 600) * 0.10;
                     } else {
-                      incomeTax = (taxableEarnings - 7800) * 0.30 + 1920;
+                      incomeTax = (taxableEarnings - 10900) * 0.35 +
+                          (10900 - 7800) * 0.30 +
+                          (7800 - 5250) * 0.25 +
+                          (5250 - 3200) * 0.20 +
+                          (3200 - 1650) * 0.15 +
+                          (1650 - 600) * 0.10;
                     }
-
 // Calculate pension tax based on gross salary (7% is typically correct, check with Ethiopian law)
                     pensionTax = grossSalary * 0.07;
 
 // Calculate net salary
                     final netSalary = grossSalary - (incomeTax + pensionTax);
-                    ;
 
                     // Round the calculated values to two decimal places
                     final netSalaryRounded =
@@ -339,67 +393,6 @@ class _AddEmployeeState extends State<AddEmployee> {
                     // Navigate to the employee detail page
                     Get.toNamed('/employee_detail');
                   },
-                  // onTap: () async {
-                  //   // Validate the form data
-                  //   final isFormValid =
-                  //       _employeeNameController.text.isNotEmpty &&
-                  //           _emailAddressController.text.isNotEmpty &&
-                  //           _phoneNumberController.text.isNotEmpty &&
-                  //           _tinNumberController.text.isNotEmpty &&
-                  //           _grossSalaryController.text.isNotEmpty &&
-                  //           _taxableEarningsController.text.isNotEmpty &&
-                  //           _startingDateOfSalaryController.text.isNotEmpty;
-
-                  //   if (!isFormValid) {
-                  //     // Show an error message if the form is not valid
-                  //     Get.snackbar('Error', 'Please fill all required fields');
-                  //     return;
-                  //   }
-
-                  //   // Retrieve and parse the form data
-                  //   final employeeName = _employeeNameController.text;
-                  //   final emailAddress = _emailAddressController.text;
-                  //   final phoneNumber = _phoneNumberController.text;
-                  //   final tinNumber = _tinNumberController.text;
-                  //   final grossSalary =
-                  //       double.tryParse(_grossSalaryController.text) ?? 0.0;
-                  //   final taxableEarnings =
-                  //       double.tryParse(_taxableEarningsController.text) ?? 0.0;
-
-                  //   // Calculate the values for tax and other fields
-                  //   final incomeTaxGross = taxableEarnings * 0.1; //
-                  //   final pensionTaxGross = taxableEarnings * 0.1; //
-                  //   final netSalaryGross =
-                  //       grossSalary - (incomeTaxGross + pensionTaxGross); //
-
-                  //   double netSalary = netSalaryGross.toPrecision(2);
-                  //   double pensionTax = pensionTaxGross.toPrecision(2);
-                  //   double incomeTax = incomeTaxGross.toPrecision(2);
-
-                  //   // Insert the employee data into the database
-                  //   final formController = Get.find<FormController>();
-                  //   await formController.insertEmployeeFromForm(
-                  //     employeeName,
-                  //     netSalary,
-                  //     taxableEarnings,
-                  //     incomeTax,
-                  //     pensionTax,
-                  //     grossSalary,
-                  //   );
-
-                  //   // Show success message
-                  //   Get.snackbar(
-                  //       'Success', 'Employee data stored successfully');
-
-                  //   _employeeNameController.clear();
-                  //   _emailAddressController.clear();
-                  //   _phoneNumberController.clear();
-                  //   _tinNumberController.clear();
-                  //   _grossSalaryController.clear();
-                  //   _taxableEarningsController.clear();
-                  //   _startingDateOfSalaryController.clear();
-                  //   Get.toNamed('/employee_detail');
-                  // },
                   child: Padding(
                     padding: const EdgeInsets.only(top: 5.0),
                     child: PrimaryButton(
