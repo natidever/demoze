@@ -1,5 +1,5 @@
-import 'package:demoze/controller/form_controller.dart';
-import 'package:demoze/utils/constants.dart';
+import 'package:Demoz/controller/form_controller.dart';
+import 'package:Demoz/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';

@@ -1,8 +1,8 @@
-import 'package:demoze/utils/constants.dart';
-import 'package:demoze/widgets/custom_buttons.dart';
-import 'package:demoze/widgets/custom_form.dart';
-import 'package:demoze/widgets/custom_texts.dart';
-import 'package:demoze/widgets/layout_helpers.dart';
+import 'package:Demoz/utils/constants.dart';
+import 'package:Demoz/widgets/custom_buttons.dart';
+import 'package:Demoz/widgets/custom_form.dart';
+import 'package:Demoz/widgets/custom_texts.dart';
+import 'package:Demoz/widgets/layout_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
@@ -113,7 +113,17 @@ class _LoginState extends State<Signup> {
               ),
               Obx(() {
                 return GestureDetector(
-                  onTap: () => Get.toNamed('/registration'),
+                  onTap: () {
+                    if (_emailController.text == 'demoz@gmail.com' &&
+                        _passwordController.text == '12345678') {
+                      Get.toNamed('/registration');
+                    } else {
+                      Get.snackbar(
+                          backgroundColor: inactiveButtonColor,
+                          "Error",
+                          "Please check your credential");
+                    }
+                  },
                   child: PrimaryButton(
                       text: "Sign up",
                       color: _isFormValid.value == true

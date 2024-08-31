@@ -1,8 +1,8 @@
-import 'package:demoze/utils/constants.dart';
-import 'package:demoze/widgets/custom_buttons.dart';
-import 'package:demoze/widgets/custom_form.dart';
-import 'package:demoze/widgets/custom_texts.dart';
-import 'package:demoze/widgets/layout_helpers.dart';
+import 'package:Demoz/utils/constants.dart';
+import 'package:Demoz/widgets/custom_buttons.dart';
+import 'package:Demoz/widgets/custom_form.dart';
+import 'package:Demoz/widgets/custom_texts.dart';
+import 'package:Demoz/widgets/layout_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';

@@ -1,5 +1,6 @@
-import 'package:demoze/controller/form_controller.dart';
-import 'package:demoze/widgets/custom_form.dart';
+import 'package:Demoz/controller/form_controller.dart';
+import 'package:Demoz/controller/payment.dart';
+import 'package:Demoz/widgets/custom_form.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:news_app/controllers/discover_controller.dart';
@@ -11,6 +12,7 @@ class MainBinder extends Bindings {
   @override
   void dependencies() {
     Get.put(FormController());
+    Get.put(paymentController());
     // Get.put(HomeController());
     // Get.put(DiscoverController());
     // Get.put(CusomSearchController());

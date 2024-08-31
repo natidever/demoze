@@ -1,9 +1,9 @@
-import 'package:demoze/controller/form_controller.dart';
-import 'package:demoze/utils/constants.dart';
-import 'package:demoze/widgets/custom_buttons.dart';
-import 'package:demoze/widgets/custom_form.dart';
-import 'package:demoze/widgets/custom_texts.dart';
-import 'package:demoze/widgets/layout_helpers.dart';
+import 'package:Demoz/controller/form_controller.dart';
+import 'package:Demoz/utils/constants.dart';
+import 'package:Demoz/widgets/custom_buttons.dart';
+import 'package:Demoz/widgets/custom_form.dart';
+import 'package:Demoz/widgets/custom_texts.dart';
+import 'package:Demoz/widgets/layout_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -249,14 +249,169 @@ class _AddEmployeeState extends State<AddEmployee> {
                 ),
               ),
               Obx(() {
-                return PrimaryButton(
-                    text: "Add employee",
-                    color: _isFormValid.value == true
-                        ? primaryColor
-                        : inactiveButtonColor,
-                    textColor: _isFormValid.value
-                        ? white
-                        : inactiveTextColorForButton);
+                return GestureDetector(
+                  onTap: () async {
+                    final isFormValid =
+                        _employeeNameController.text.isNotEmpty &&
+                            _emailAddressController.text.isNotEmpty &&
+                            _phoneNumberController.text.isNotEmpty &&
+                            _tinNumberController.text.isNotEmpty &&
+                            _grossSalaryController.text.isNotEmpty &&
+                            _taxableEarningsController.text.isNotEmpty &&
+                            _startingDateOfSalaryController.text.isNotEmpty;
+
+                    if (!isFormValid) {
+                      // Show an error message if the form is not valid
+                      Get.snackbar('Error', 'Please fill all required fields');
+                      return;
+                    }
+
+                    // Retrieve and parse the form data
+                    final employeeName = _employeeNameController.text;
+                    final emailAddress = _emailAddressController.text;
+                    final phoneNumber = _phoneNumberController.text;
+                    final tinNumber = _tinNumberController.text;
+                    final grossSalary =
+                        double.tryParse(_grossSalaryController.text) ?? 0.0;
+                    final taxableEarnings =
+                        double.tryParse(_taxableEarningsController.text) ?? 0.0;
+
+                    // Calculate the values for tax and other fields based on Ethiopian tax laws
+                    double incomeTax;
+                    double pensionTax;
+
+// Calculate income tax based on the brackets
+                    if (taxableEarnings <= 600) {
+                      incomeTax = 0.0;
+                    } else if (taxableEarnings <= 1650) {
+                      incomeTax = (taxableEarnings - 600) * 0.10;
+                    } else if (taxableEarnings <= 3200) {
+                      incomeTax = (taxableEarnings - 1650) * 0.15 + 105;
+                    } else if (taxableEarnings <= 5250) {
+                      incomeTax = (taxableEarnings - 3200) * 0.20 + 420;
+                    } else if (taxableEarnings <= 7800) {
+                      incomeTax = (taxableEarnings - 5250) * 0.25 + 920;
+                    } else {
+                      incomeTax = (taxableEarnings - 7800) * 0.30 + 1920;
+                    }
+
+// Calculate pension tax based on gross salary (7% is typically correct, check with Ethiopian law)
+                    pensionTax = grossSalary * 0.07;
+
+// Calculate net salary
+                    final netSalary = grossSalary - (incomeTax + pensionTax);
+                    ;
+
+                    // Round the calculated values to two decimal places
+                    final netSalaryRounded =
+                        double.parse(netSalary.toStringAsFixed(2));
+                    final pensionTaxRounded =
+                        double.parse(pensionTax.toStringAsFixed(2));
+                    final incomeTaxRounded =
+                        double.parse(incomeTax.toStringAsFixed(2));
+
+                    // Insert the employee data into the database
+                    final formController = Get.find<FormController>();
+                    await formController.insertEmployeeFromForm(
+                      employeeName,
+                      netSalaryRounded,
+                      taxableEarnings,
+                      incomeTaxRounded,
+                      pensionTaxRounded,
+                      grossSalary,
+                    );
+
+                    // Show success message
+                    Get.snackbar(
+                        backgroundColor: inactiveButtonColor,
+                        'Success',
+                        'Employee data stored successfully');
+
+                    // Clear the form fields
+                    _employeeNameController.clear();
+                    _emailAddressController.clear();
+                    _phoneNumberController.clear();
+                    _tinNumberController.clear();
+                    _grossSalaryController.clear();
+                    _taxableEarningsController.clear();
+                    _startingDateOfSalaryController.clear();
+
+                    // Navigate to the employee detail page
+                    Get.toNamed('/employee_detail');
+                  },
+                  // onTap: () async {
+                  //   // Validate the form data
+                  //   final isFormValid =
+                  //       _employeeNameController.text.isNotEmpty &&
+                  //           _emailAddressController.text.isNotEmpty &&
+                  //           _phoneNumberController.text.isNotEmpty &&
+                  //           _tinNumberController.text.isNotEmpty &&
+                  //           _grossSalaryController.text.isNotEmpty &&
+                  //           _taxableEarningsController.text.isNotEmpty &&
+                  //           _startingDateOfSalaryController.text.isNotEmpty;
+
+                  //   if (!isFormValid) {
+                  //     // Show an error message if the form is not valid
+                  //     Get.snackbar('Error', 'Please fill all required fields');
+                  //     return;
+                  //   }
+
+                  //   // Retrieve and parse the form data
+                  //   final employeeName = _employeeNameController.text;
+                  //   final emailAddress = _emailAddressController.text;
+                  //   final phoneNumber = _phoneNumberController.text;
+                  //   final tinNumber = _tinNumberController.text;
+                  //   final grossSalary =
+                  //       double.tryParse(_grossSalaryController.text) ?? 0.0;
+                  //   final taxableEarnings =
+                  //       double.tryParse(_taxableEarningsController.text) ?? 0.0;
+
+                  //   // Calculate the values for tax and other fields
+                  //   final incomeTaxGross = taxableEarnings * 0.1; //
+                  //   final pensionTaxGross = taxableEarnings * 0.1; //
+                  //   final netSalaryGross =
+                  //       grossSalary - (incomeTaxGross + pensionTaxGross); //
+
+                  //   double netSalary = netSalaryGross.toPrecision(2);
+                  //   double pensionTax = pensionTaxGross.toPrecision(2);
+                  //   double incomeTax = incomeTaxGross.toPrecision(2);
+
+                  //   // Insert the employee data into the database
+                  //   final formController = Get.find<FormController>();
+                  //   await formController.insertEmployeeFromForm(
+                  //     employeeName,
+                  //     netSalary,
+                  //     taxableEarnings,
+                  //     incomeTax,
+                  //     pensionTax,
+                  //     grossSalary,
+                  //   );
+
+                  //   // Show success message
+                  //   Get.snackbar(
+                  //       'Success', 'Employee data stored successfully');
+
+                  //   _employeeNameController.clear();
+                  //   _emailAddressController.clear();
+                  //   _phoneNumberController.clear();
+                  //   _tinNumberController.clear();
+                  //   _grossSalaryController.clear();
+                  //   _taxableEarningsController.clear();
+                  //   _startingDateOfSalaryController.clear();
+                  //   Get.toNamed('/employee_detail');
+                  // },
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 5.0),
+                    child: PrimaryButton(
+                        text: "Add employee",
+                        color: _isFormValid.value == true
+                            ? primaryColor
+                            : inactiveButtonColor,
+                        textColor: _isFormValid.value
+                            ? white
+                            : inactiveTextColorForButton),
+                  ),
+                );
               })
             ],
           ),

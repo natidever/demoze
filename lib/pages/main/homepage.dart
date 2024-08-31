@@ -1,9 +1,9 @@
-import 'package:demoze/utils/constants.dart';
-import 'package:demoze/widgets/cards.dart';
-import 'package:demoze/widgets/custom_buttons.dart';
-import 'package:demoze/widgets/custom_texts.dart';
-import 'package:demoze/widgets/layout_helpers.dart';
-import 'package:demoze/widgets/pichart_badget.dart';
+import 'package:Demoz/utils/constants.dart';
+import 'package:Demoz/widgets/cards.dart';
+import 'package:Demoz/widgets/custom_buttons.dart';
+import 'package:Demoz/widgets/custom_texts.dart';
+import 'package:Demoz/widgets/layout_helpers.dart';
+import 'package:Demoz/widgets/pichart_badget.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -98,7 +98,7 @@ class _HomepageState extends State<Homepage> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Get.toNamed('/add_employee');
+                      // Get.toNamed('/add_employee');
                     },
                     child: Container(
                         width: 111,
@@ -267,7 +267,7 @@ class _HomepageState extends State<Homepage> {
                         Text(
                           '898 empoyee total',
                           style: GoogleFonts.lexend(
-                              fontSize: 8,
+                              fontSize: 10,
                               fontWeight: FontWeight.w300,
                               color: subTextColor),
                         )
@@ -275,24 +275,28 @@ class _HomepageState extends State<Homepage> {
                     ),
                   ),
                 ),
-                HorizontalSpace(10),
+                HorizontalSpace(5),
 
                 //Tax summary
                 Container(
-                  width: 171,
+                  width: 157,
                   height: 157,
                   decoration: BoxDecoration(
                       color: white, borderRadius: BorderRadius.circular(16)),
                   child: Padding(
-                    padding: const EdgeInsets.all(5.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        NormalAppText(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            text: "Tax Summery"),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15.0),
+                          child: NormalAppText(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              text: "Tax Summery"),
+                        ),
+                        VerticalSpace(10),
                         Row(
                           children: [
                             NormalAppText(
@@ -336,29 +340,35 @@ class _HomepageState extends State<Homepage> {
       final fontSize = isTouched ? 25.0 : 16.0;
       final radius = isTouched ? 30.0 : 20.0;
       const shadows = [Shadow(color: Colors.black, blurRadius: 2)];
+      final xOffset = i == 0 ? -40.0 : 50.0; // Example values for x offset
+      final yOffset = i == 0 ? -80.0 : 70.0;
       return PieChartSectionData(
-        color: i == 0
-            ? Color.fromRGBO(89, 50, 234, 1)
-            : Color.fromRGBO(22, 192, 152, 1),
-        value: i == 0 ? 65 : 35,
-        title: i == 0 ? '' : '',
-        radius: radius,
-        titleStyle: TextStyle(
-          fontSize: fontSize,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-          shadows: shadows,
-        ),
-        badgeWidget: CustomBadge(
-          badgeColor: i == 0
+          color: i == 0
               ? Color.fromRGBO(89, 50, 234, 1)
-              : Color.fromRGBO(84, 153, 137, 1),
-          text: i == 0 ? '35%' : '65%',
-          iconSource:
-              i == 0 ? 'assets/icons/male.png' : 'assets/icons/female.png',
-        ),
-        badgePositionPercentageOffset: -4.3,
-      );
+              : Color.fromRGBO(22, 192, 152, 1),
+          value: i == 0 ? 65 : 35,
+          title: i == 0 ? '' : '',
+          radius: radius,
+          titleStyle: TextStyle(
+            fontSize: fontSize,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            shadows: shadows,
+          ),
+          badgeWidget: Transform.translate(
+            offset: Offset(xOffset, yOffset),
+            child: CustomBadge(
+              badgeColor: i == 0
+                  ? Color.fromRGBO(89, 50, 234, 1)
+                  : Color.fromRGBO(84, 153, 137, 1),
+              text: i == 0 ? '35%' : '65%',
+              iconSource:
+                  i == 0 ? 'assets/icons/male.png' : 'assets/icons/female.png',
+            ),
+          ),
+          badgePositionPercentageOffset: 1
+          // i == 0 ? 0.8 : 1.2, // Adjust position as neede
+          );
     });
   }
 }

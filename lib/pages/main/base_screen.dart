@@ -1,7 +1,7 @@
-import 'package:demoze/pages/main/company_profile.dart';
-import 'package:demoze/pages/main/employee_detail.dart';
-import 'package:demoze/pages/main/homepage.dart';
-import 'package:demoze/utils/constants.dart';
+import 'package:Demoz/pages/main/company_profile.dart';
+import 'package:Demoz/pages/main/employee_detail.dart';
+import 'package:Demoz/pages/main/homepage.dart';
+import 'package:Demoz/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

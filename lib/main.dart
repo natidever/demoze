@@ -1,14 +1,20 @@
 import 'dart:async';
 
-import 'package:demoze/bindings/main_binder.dart';
-import 'package:demoze/pages/global_error_screen.dart';
-import 'package:demoze/route/app_route.dart';
+import 'package:chapa_unofficial/chapa_unofficial.dart';
+import 'package:Demoz/bindings/main_binder.dart';
+import 'package:Demoz/pages/global_error_screen.dart';
+import 'package:Demoz/route/app_route.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 void main() {
   /// handling async errors
+  Chapa.configure(privateKey: "CHASECK_TEST-NMHnfnAw81g9EWXYoSm6FrobP7rePyRd");
+
+  ///
   runZonedGuarded(() {
+    WidgetsFlutterBinding.ensureInitialized();
+
     runApp(MyApp());
   }, (Object error, StackTrace stack) {
     // This help use to handle asynchronous error globally
@@ -47,7 +53,7 @@ class MyApp extends StatelessWidget {
         title: 'News App',
         debugShowCheckedModeBanner: false,
         // navigatorKey: navigatorKey,
-        initialRoute: AppRoutes.signup,
+        initialRoute: AppRoutes.onboarding,
         getPages: AppRoutes.routes);
   }
 }

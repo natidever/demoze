@@ -1,4 +1,4 @@
-import 'package:demoze/utils/constants.dart';
+import 'package:Demoz/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomBadge extends StatelessWidget {

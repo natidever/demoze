@@ -1,10 +1,11 @@
-import 'package:demoze/pages/authentications/company_registration.dart';
-import 'package:demoze/pages/authentications/signup.dart';
-import 'package:demoze/pages/main/add_employee.dart';
-import 'package:demoze/pages/main/base_screen.dart';
-import 'package:demoze/pages/main/company_profile.dart';
-import 'package:demoze/pages/main/employee_detail.dart';
-import 'package:demoze/pages/main/homepage.dart';
+import 'package:Demoz/pages/authentications/company_registration.dart';
+import 'package:Demoz/pages/authentications/signup.dart';
+import 'package:Demoz/pages/main/add_employee.dart';
+import 'package:Demoz/pages/main/base_screen.dart';
+import 'package:Demoz/pages/main/company_profile.dart';
+import 'package:Demoz/pages/main/employee_detail.dart';
+import 'package:Demoz/pages/main/homepage.dart';
+import 'package:Demoz/pages/main/onbarding.dart';
 import 'package:get/get.dart';
 
 class AppRoutes {
@@ -30,6 +31,7 @@ class AppRoutes {
     GetPage(name: company_profile, page: () => CompanyProfile()),
     GetPage(name: home, page: () => Homepage()),
     GetPage(name: base_screen, page: () => BaseScreen()),
-    GetPage(name: add_employee, page: () => AddEmployee())
+    GetPage(name: add_employee, page: () => AddEmployee()),
+    GetPage(name: onboarding, page: () => OnBoarding())
   ];
 }

@@ -1,4 +1,4 @@
-name: demoze
+name: Demoz
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -37,16 +37,61 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   get: ^4.6.6 
-  google_fonts: ^6.2.1               # Allows easy integration of Google Fonts into Flutter apps.
+  google_fonts: ^6.2.1    
+  chapa_unofficial: ^0.0.5
+             # Allows easy integration of Google Fonts into Flutter apps.
   google_nav_bar: ^5.0.6 
   fl_chart: ^0.68.0
-  syncfusion_flutter_datepicker: ^26.2.11
-
+  # syncfusion_flutter_datepicker: ^26.2.11
+  syncfusion_flutter_datagrid: ^26.2.11
+  flutter_native_splash: ^2.4.1      # Configures native splash screens for Flutter apps.
+  
+  sqflite: ^2.3.3+1
+  path: ^1.9.0
+  firebase_core: ^3.4.0
+  firebase_auth: ^5.2.0
+  google_sign_in: ^6.2.1
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.1
+  
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/launcher1.png"
+  min_sdk_android: 21
+ 
+
+
+
+
+
+
+flutter_native_splash:
+  color: "#475AD7"  # Background color for the splash screen
+
+  # The splash image that fills the screen without being clipped. This should be a landscape PNG image.
+  image: assets/icons/logo.png
+
+  # Branding image, which is the same as the main splash image.
+  # branding: assets/images/splash/logo3.png
+
+  # Android 12+ specific configurations
+  android_12:
+    image: assets/icons/finalsplash1.png
+     # The image for Android 12 splash screen.
+    color: "#579AFC"  # Background color for Android 12 splash screen.
+
+  # Ensures the splash image fills the screen without being clipped or distorted.
+  android_gravity: fill
+
+  # Platform-specific configurations
+  android: true  # Enable splash screen for Android
+  ios: false  # Disable splash screen for iOS
+  web: false  # Disable splash screen for Web
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -95,4 +140,7 @@ flutter:
   #         weight: 700
   #
   # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
+ # see https://flutter.dev/custom-fonts/#from-packages
+
+
+
