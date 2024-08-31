@@ -1,3 +1,5 @@
+import 'package:Demoz/controller/company_controller.dart';
+import 'package:Demoz/controller/form_controller.dart';
 import 'package:Demoz/controller/payment.dart';
 import 'package:Demoz/models/database_helper.dart';
 import 'package:Demoz/models/models.dart';
@@ -235,8 +237,12 @@ class EmployeeDataSource extends DataGridSource {
   }
 
   Future<void> _loadData() async {
+    final forController = Get.find<FormController>();
+
+    final companyid = forController.companyID ?? 1;
     final dbHelper = DatabaseHelper.instance;
-    final fetchedEmployees = await dbHelper.fetchEmployees();
+
+    final fetchedEmployees = await dbHelper.fetchEmployees(companyid);
     employees.addAll(fetchedEmployees);
     notifyListeners();
   }

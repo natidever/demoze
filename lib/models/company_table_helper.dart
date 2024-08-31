@@ -3,7 +3,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class CompanyTableHelper {
-  static final _databaseName = "CompanyDatabase.db";
+  static final _databaseName = "employee3.db";
   static final _databaseVersion = 1;
 
   static final table = 'company';
@@ -31,6 +31,8 @@ class CompanyTableHelper {
   }
 
   Future<Database> _initDatabase() async {
+    // await deleteDatabaseFile();
+
     final path = join(await getDatabasesPath(), _databaseName);
     return await openDatabase(
       path,
@@ -52,6 +54,20 @@ class CompanyTableHelper {
         $columnBankAccount TEXT NOT NULL
       )
     ''');
+
+    await db.execute('''
+    CREATE TABLE employee (
+      _id INTEGER PRIMARY KEY AUTOINCREMENT,
+      employeeName TEXT NOT NULL,
+      netSalary REAL NOT NULL,
+      taxEarning REAL NOT NULL,
+      incomeTax REAL NOT NULL,
+      pensionTax REAL NOT NULL,
+      grossPay REAL NOT NULL,
+      companyId INTEGER,
+      FOREIGN KEY (companyId) REFERENCES company(id)
+    )
+  ''');
   }
 
   Future<int> insert(Company company) async {
@@ -67,3 +83,10 @@ class CompanyTableHelper {
     });
   }
 }
+
+// Future<void> deleteDatabaseFile() async {
+//   final dbPath = await getDatabasesPath();
+//   final path = join(dbPath, 'employee3.db');
+//   await deleteDatabase(path);
+//   print("Database file deleted.");
+// }

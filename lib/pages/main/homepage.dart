@@ -74,14 +74,14 @@ class _HomepageState extends State<Homepage> {
                     backgroudColor: thirdardBackgroud,
                     textColor: Color.fromRGBO(48, 190, 182, 1),
                     content: "4",
-                    description: "Pension Tax Paied"),
+                    description: "Pension Tax Paid"),
                 HorizontalSpace(20),
                 DashboardCard(
                     borderColor: fourthCardBorder,
                     backgroudColor: fourthardBackgroud,
                     textColor: fourthColor,
-                    content: "200",
-                    description: "Income Tax paied")
+                    content: "95%",
+                    description: "Employee Performance")
               ],
             ),
             VerticalSpace(30),

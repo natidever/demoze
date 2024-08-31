@@ -202,20 +202,30 @@ class _CompanyRegistrationState extends State<CompanyRegistration> {
                         "Success", "Your Company Is Registerd Successfully");
 
                     Get.toNamed('/base_screen');
+                    formController.companyID = companies.last.id;
+                    print('-----------------------------');
+                    print('-----------------------------');
+                    print('-----------------------------');
+                    print('-----------------------------');
+
+                    print(formController.companyID);
+                    print('-----------------------------');
+                    print('-----------------------------');
+                    print('-----------------------------');
 
                     // Print the saved company data to the console
-                    for (var company in companies) {
-                      print('Company ID: ${company.id}');
-                      print('Name: ${company.name}');
-                      print('Address: ${company.address}');
-                      print('Phone Number: ${company.phoneNumber}');
-                      print('TIN Number: ${company.tinNumber}');
-                      print(
-                          'Number of Employees: ${company.numberOfEmployees}');
-                      print('Company Bank: ${company.companyBank}');
-                      print('Bank Account: ${company.bankAccount}');
-                      print('-----------------------------');
-                    }
+                    // for (var company in companies) {
+                    //   print('Company ID: ${company.id}');
+                    //   print('Name: ${company.name}');
+                    //   print('Address: ${company.address}');
+                    //   print('Phone Number: ${company.phoneNumber}');
+                    //   print('TIN Number: ${company.tinNumber}');
+                    //   print(
+                    //       'Number of Employees: ${company.numberOfEmployees}');
+                    //   print('Company Bank: ${company.companyBank}');
+                    //   print('Bank Account: ${company.bankAccount}');
+                    //   // print('-----------------------------');
+                    // }
 
 // 12345678
 

@@ -15,6 +15,8 @@ import 'package:intl/intl.dart';
 class FormController extends GetxController {
   RxBool isPasswordVissible = false.obs;
   RxBool isFormValid = true.obs;
+
+  int? companyID;
   Future<void> defaultFunction() {
     return Future.delayed(Duration.zero);
   }
@@ -25,13 +27,13 @@ class FormController extends GetxController {
     final phoneNumber = phoneNumberController.text;
     final numberOfEmployee = numberOfEmployeeController.text;
 
-    if (tinNumber.length != 10 || !RegExp(r'^\d{10}$').hasMatch(tinNumber)) {
-      Get.snackbar('Error', 'TIN number must be exactly 10 digits');
-      isFormValid.value = false;
-    } else if (int.tryParse(numberOfEmployee) == null) {
-      Get.snackbar('Error', 'Employee Must be integer');
-      isFormValid.value = false;
-    }
+    // if (tinNumber.length != 10 || !RegExp(r'^\d{10}$').hasMatch(tinNumber)) {
+    //   Get.snackbar('Error', 'TIN number must be exactly 10 digits');
+    //   isFormValid.value = false;
+    // } else if (int.tryParse(numberOfEmployee) == null) {
+    //   Get.snackbar('Error', 'Employee Must be integer');
+    //   isFormValid.value = false;
+    // }
 
     print("valideform: ${isFormValid}");
   }
@@ -156,23 +158,23 @@ class FormController extends GetxController {
   // Add this method to your DatabaseHelper class
   // Method to insert employee data from form
   Future<void> insertEmployeeFromForm(
-    String employeeName,
-    double netSalary,
-    double taxEarning,
-    double incomeTax,
-    double pensionTax,
-    double grossPay,
-  ) async {
+      String employeeName,
+      double netSalary,
+      double taxEarning,
+      double incomeTax,
+      double pensionTax,
+      double grossPay,
+      int companyId) async {
     // Access the database helper instance and call insert method
     await DatabaseHelper.instance.insertEmployee(
       Employee(
-        employeeName: employeeName,
-        netSalary: netSalary,
-        taxEarning: taxEarning,
-        incomeTax: incomeTax,
-        pensionTax: pensionTax,
-        grossPay: grossPay,
-      ),
+          employeeName: employeeName,
+          netSalary: netSalary,
+          taxEarning: taxEarning,
+          incomeTax: incomeTax,
+          pensionTax: pensionTax,
+          grossPay: grossPay,
+          companyId: companyID),
     );
   }
 }

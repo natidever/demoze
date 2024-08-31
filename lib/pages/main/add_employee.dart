@@ -366,14 +366,18 @@ class _AddEmployeeState extends State<AddEmployee> {
 
                     // Insert the employee data into the database
                     final formController = Get.find<FormController>();
+                    int companyId = formController.companyID ?? 0;
+
+                    print("Company id is :${companyId}");
+
                     await formController.insertEmployeeFromForm(
-                      employeeName,
-                      netSalaryRounded,
-                      taxableEarnings,
-                      incomeTaxRounded,
-                      pensionTaxRounded,
-                      grossSalary,
-                    );
+                        employeeName,
+                        netSalaryRounded,
+                        taxableEarnings,
+                        incomeTaxRounded,
+                        pensionTaxRounded,
+                        grossSalary,
+                        companyId);
 
                     // Show success message
                     Get.snackbar(
