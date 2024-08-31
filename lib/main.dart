@@ -6,10 +6,13 @@ import 'package:Demoz/pages/global_error_screen.dart';
 import 'package:Demoz/route/app_route.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
   /// handling async errors
   Chapa.configure(privateKey: "CHASECK_TEST-NMHnfnAw81g9EWXYoSm6FrobP7rePyRd");
+
+  // await Firebase.initializeApp();
 
   ///
   runZonedGuarded(() {
@@ -19,7 +22,7 @@ void main() {
   }, (Object error, StackTrace stack) {
     // This help use to handle asynchronous error globally
     print('Asynchronous Error: $error');
-    //  we can report error to an external service like Sentry
+    //  we can report error to an external service like Sentrpy
   });
 
   /// Here ,i used  custom page to handle global errors

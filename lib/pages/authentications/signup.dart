@@ -1,3 +1,4 @@
+import 'package:Demoz/controller/form_controller.dart';
 import 'package:Demoz/utils/constants.dart';
 import 'package:Demoz/widgets/custom_buttons.dart';
 import 'package:Demoz/widgets/custom_form.dart';
@@ -7,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Signup extends StatefulWidget {
   @override
@@ -14,6 +18,8 @@ class Signup extends StatefulWidget {
 }
 
 class _LoginState extends State<Signup> {
+  //google instance
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -114,15 +120,17 @@ class _LoginState extends State<Signup> {
               Obx(() {
                 return GestureDetector(
                   onTap: () {
-                    if (_emailController.text == 'demoz@gmail.com' &&
-                        _passwordController.text == '12345678') {
-                      Get.toNamed('/registration');
-                    } else {
-                      Get.snackbar(
-                          backgroundColor: inactiveButtonColor,
-                          "Error",
-                          "Please check your credential");
-                    }
+                    // if (_emailController.text == 'demoz@gmail.com' &&
+                    //     _passwordController.text == '12345678') {
+                    //   Get.toNamed('/registration');
+                    // } else {
+                    //   Get.snackbar(
+                    //       backgroundColor: inactiveButtonColor,
+                    //       "Error",
+                    //       "Please check your credential");
+                    // }
+
+                    Get.toNamed('/registration');
                   },
                   child: PrimaryButton(
                       text: "Sign up",
@@ -157,28 +165,46 @@ class _LoginState extends State<Signup> {
                   ],
                 ),
               ),
-              Container(
-                  width: 335,
-                  height: 56,
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(255, 255, 255, 1),
-                    border:
-                        Border.all(color: Color.fromRGBO(172, 175, 181, 0.2)),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                          width: 24, height: 24, 'assets/icons/google.png'),
-                      HorizontalSpace(10),
-                      Text(
-                        "Google",
-                        style: GoogleFonts.lexend(
-                            fontSize: 16, fontWeight: FontWeight.w300),
-                      )
-                    ],
-                  )),
+              GestureDetector(
+                onTap: () async {
+                  // try {
+                  //   final formController = Get.find<FormController>();
+                  //   final UserCredential userCredential =
+                  //       await formController.signInWithGoogle();
+                  //   final User user = userCredential.user!;
+                  //   print('Successful signin');
+
+                  //   print('User: ${user.displayName}');
+
+                  //   // Handle successful sign-in (e.g., navigate to a different screen)
+                  // } catch (e) {
+                  //   print(
+                  //       'Error occured during google signin with error detail:${e}');
+                  // }
+                },
+                child: Container(
+                    width: 335,
+                    height: 56,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(255, 255, 255, 1),
+                      border:
+                          Border.all(color: Color.fromRGBO(172, 175, 181, 0.2)),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                            width: 24, height: 24, 'assets/icons/google.png'),
+                        HorizontalSpace(10),
+                        Text(
+                          "Google",
+                          style: GoogleFonts.lexend(
+                              fontSize: 16, fontWeight: FontWeight.w300),
+                        )
+                      ],
+                    )),
+              ),
               // Flexible(child: Container()),
               VerticalSpace(size.height * 0.21),
               Padding(

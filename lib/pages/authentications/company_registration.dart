@@ -1,3 +1,8 @@
+import 'dart:ffi';
+
+import 'package:Demoz/controller/form_controller.dart';
+import 'package:Demoz/models/company_table_helper.dart';
+import 'package:Demoz/models/models.dart';
 import 'package:Demoz/utils/constants.dart';
 import 'package:Demoz/widgets/custom_buttons.dart';
 import 'package:Demoz/widgets/custom_form.dart';
@@ -25,16 +30,31 @@ class _CompanyRegistrationState extends State<CompanyRegistration> {
   final TextEditingController _companyBankController = TextEditingController();
   final TextEditingController _bacnkAccountController = TextEditingController();
 
-  void _validateForm() {
-    _isFormValid.value = _companyNameController.text.isNotEmpty &&
-        _addressController.text.isNotEmpty &&
-        _phoneNumberController.text.isNotEmpty &&
-        _phoneNumberController.text.isNotEmpty &&
-        _tinNumberController.text.isNotEmpty &&
-        _numberOfEmployeeController.text.isNotEmpty &&
-        _companyBankController.text.isNotEmpty &&
-        _bacnkAccountController.text.isNotEmpty;
+  void validateForm() {
+    _isFormValid.value = formcontroller.companyNameController.text.isNotEmpty &&
+        formcontroller.addressController.text.isNotEmpty &&
+        formcontroller.phoneNumberController.text.isNotEmpty &&
+        formcontroller.tinNumberController.text.isNotEmpty &&
+        formcontroller.numberOfEmployeeController.text.isNotEmpty &&
+        formcontroller.companyBankController.text.isNotEmpty &&
+        formcontroller.bacnkAccountController.text.isNotEmpty;
+
     print("value:${_isFormValid} :");
+  }
+
+  final formcontroller = Get.find<FormController>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    formcontroller.companyNameController.addListener(validateForm);
+    formcontroller.addressController.addListener(validateForm);
+    formcontroller.phoneNumberController.addListener(validateForm);
+    formcontroller.tinNumberController.addListener(validateForm);
+    formcontroller.numberOfEmployeeController.addListener(validateForm);
+    formcontroller.companyBankController.addListener(validateForm);
+    formcontroller.bacnkAccountController.addListener(validateForm);
   }
 
   @override
@@ -74,7 +94,7 @@ class _CompanyRegistrationState extends State<CompanyRegistration> {
                   width: 335,
                   height: 56,
                   child: CustomForm(
-                    // controller: _emailController,
+                    controller: formcontroller.companyNameController,
                     isPasswordVissible: false,
                     labelText: "Company name",
                   ),
@@ -86,7 +106,7 @@ class _CompanyRegistrationState extends State<CompanyRegistration> {
                   width: 335,
                   height: 56,
                   child: CustomForm(
-                    // controller: _emailController,
+                    controller: formcontroller.addressController,
                     isPasswordVissible: false,
                     labelText: "Address of company",
                   ),
@@ -98,7 +118,7 @@ class _CompanyRegistrationState extends State<CompanyRegistration> {
                   width: 335,
                   height: 56,
                   child: CustomForm(
-                    // controller: _emailController,
+                    controller: formcontroller.phoneNumberController,
                     isPasswordVissible: false,
                     labelText: "Phone Number",
                   ),
@@ -110,7 +130,7 @@ class _CompanyRegistrationState extends State<CompanyRegistration> {
                   width: 335,
                   height: 56,
                   child: CustomForm(
-                    // controller: _emailController,
+                    controller: formcontroller.tinNumberController,
                     isPasswordVissible: false,
                     labelText: "Tin Number",
                   ),
@@ -122,7 +142,7 @@ class _CompanyRegistrationState extends State<CompanyRegistration> {
                   width: 335,
                   height: 56,
                   child: CustomForm(
-                    // controller: _emailController,
+                    controller: formcontroller.numberOfEmployeeController,
                     isPasswordVissible: false,
                     labelText: "Number of employees",
                   ),
@@ -134,7 +154,7 @@ class _CompanyRegistrationState extends State<CompanyRegistration> {
                   width: 335,
                   height: 56,
                   child: CustomForm(
-                    // controller: _emailController,
+                    controller: formcontroller.companyBankController,
                     isPasswordVissible: false,
                     labelText: "Company bank",
                   ),
@@ -147,23 +167,90 @@ class _CompanyRegistrationState extends State<CompanyRegistration> {
                   height: 56,
                   child: CustomForm(
                     // controller: _emailController,
+                    controller: formcontroller.bacnkAccountController,
                     isPasswordVissible: false,
                     labelText: "Bank account numner",
                   ),
                 ),
               ),
               GestureDetector(
-                onTap: () {
-                  Get.toNamed('/base_screen');
+                onTap: () async {
+                  print("TAPPPED");
+                  print(_isFormValid);
+                  // Check if all form fields are filled
+                  if (formcontroller.companyNameController.text.isNotEmpty &&
+                      formcontroller.addressController.text.isNotEmpty &&
+                      formcontroller.phoneNumberController.text.isNotEmpty &&
+                      formcontroller.tinNumberController.text.isNotEmpty &&
+                      formcontroller
+                          .numberOfEmployeeController.text.isNotEmpty &&
+                      formcontroller.companyBankController.text.isNotEmpty &&
+                      formcontroller.bacnkAccountController.text.isNotEmpty) {
+                    formcontroller.validator();
+
+                    final formController = Get.find<FormController>();
+
+                    // Call the method to insert company data (it returns void)sdad
+                    await formController.insertCompanyData();
+
+                    // Fetch the data to verify it has been saved
+                    final dbHelper = CompanyTableHelper.instance;
+                    final List<Company> companies =
+                        await dbHelper.queryAllRows();
+
+                    Get.snackbar(
+                        "Success", "Your Company Is Registerd Successfully");
+
+                    Get.toNamed('/base_screen');
+
+                    // Print the saved company data to the console
+                    for (var company in companies) {
+                      print('Company ID: ${company.id}');
+                      print('Name: ${company.name}');
+                      print('Address: ${company.address}');
+                      print('Phone Number: ${company.phoneNumber}');
+                      print('TIN Number: ${company.tinNumber}');
+                      print(
+                          'Number of Employees: ${company.numberOfEmployees}');
+                      print('Company Bank: ${company.companyBank}');
+                      print('Bank Account: ${company.bankAccount}');
+                      print('-----------------------------');
+                    }
+
+// 12345678
+
+                    // Get.snackbar("Success", "Company Register Successfully");
+
+                    // Find the FormController instance using Get.find
+
+                    // Show success message
+
+                    // Clear the form fields
+                    // _companyNameController.clear();
+                    // _addressController.clear();
+                    // _phoneNumberController.clear();
+                    // _tinNumberController.clear();
+                    // _numberOfEmployeeController.clear();
+                    // _companyBankController.clear();
+                    // _bacnkAccountController.clear();
+
+                    // Navigate to the next screen
+                    // Get.toNamed('/base_screen');
+                  } else {
+                    // Show an error message if the form is not valid
+                    Get.snackbar('Error', 'Please fill all required fields');
+                  }
                 },
-                child: PrimaryButton(
+                child: Obx(() {
+                  return PrimaryButton(
                     text: "Sign up",
                     color: _isFormValid.value == true
                         ? primaryColor
                         : inactiveButtonColor,
-                    textColor: _isFormValid.value
-                        ? white
-                        : inactiveTextColorForButton),
+                    textColor:
+                        _isFormValid.value ? white : inactiveTextColorForButton,
+                  );
+                }),
               )
             ],
           ),
