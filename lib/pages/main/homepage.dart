@@ -1,3 +1,5 @@
+import 'package:Demoz/controller/dashboard_controller.dart';
+import 'package:Demoz/controller/form_controller.dart';
 import 'package:Demoz/utils/constants.dart';
 import 'package:Demoz/widgets/cards.dart';
 import 'package:Demoz/widgets/custom_buttons.dart';
@@ -18,8 +20,17 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   int touchedIndex = -1;
+  final dashboardController = Get.find<DashboardController>();
+  final formController = Get.find<FormController>();
+
   @override
   Widget build(BuildContext context) {
+    final companyId = formController.companyID;
+
+    dashboardController.fetchTotalEmployees(companyId ?? 1);
+    dashboardController.fetchTotalIncomeTax(companyId ?? 1);
+    dashboardController.fetchTotalPensionPaid(companyId ?? 1);
+
     return Scaffold(
       backgroundColor: Color.fromRGBO(252, 252, 252, 1),
       appBar: AppBar(
@@ -51,19 +62,23 @@ class _HomepageState extends State<Homepage> {
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(
               children: [
-                DashboardCard(
-                    borderColor: firstCardBorder,
-                    backgroudColor: firstCardBackgroud,
-                    textColor: primaryColor,
-                    content: "20",
-                    description: "Number of Employee"),
+                Obx(() {
+                  return DashboardCard(
+                      borderColor: firstCardBorder,
+                      backgroudColor: firstCardBackgroud,
+                      textColor: primaryColor,
+                      content: "${dashboardController.totalEmployees}",
+                      description: "Number of Employee");
+                }),
                 HorizontalSpace(20),
-                DashboardCard(
-                    borderColor: secondCardBorder,
-                    backgroudColor: secondCardBackgroud,
-                    textColor: Color.fromRGBO(163, 209, 57, 1),
-                    content: "200",
-                    description: "Income Tax paied")
+                Obx(() {
+                  return DashboardCard(
+                      borderColor: secondCardBorder,
+                      backgroudColor: secondCardBackgroud,
+                      textColor: Color.fromRGBO(163, 209, 57, 1),
+                      content: "${dashboardController.totalIncomeTax}",
+                      description: "Income Tax paied");
+                })
               ],
             ),
             VerticalSpace(10),
@@ -73,7 +88,7 @@ class _HomepageState extends State<Homepage> {
                     borderColor: thirdCardBorder,
                     backgroudColor: thirdardBackgroud,
                     textColor: Color.fromRGBO(48, 190, 182, 1),
-                    content: "4",
+                    content: "${dashboardController.totalPensionPaid}",
                     description: "Pension Tax Paid"),
                 HorizontalSpace(20),
                 DashboardCard(
@@ -175,10 +190,13 @@ class _HomepageState extends State<Homepage> {
                                 fontSize: 12,
                                 text: "Income Tax"),
                             VerticalSpace(5),
-                            NormalAppText(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 14,
-                                text: "4000 etb"),
+                            Obx(() {
+                              return NormalAppText(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14,
+                                  text:
+                                      "${dashboardController.totalIncomeTax} etb");
+                            }),
                           ],
                         ),
                         Column(
@@ -188,10 +206,13 @@ class _HomepageState extends State<Homepage> {
                                 fontSize: 12,
                                 text: "Pension Tax"),
                             VerticalSpace(5),
-                            NormalAppText(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 14,
-                                text: "5000 etb"),
+                            Obx(() {
+                              return NormalAppText(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14,
+                                  text:
+                                      "${dashboardController.totalPensionPaid} etb");
+                            }),
                           ],
                         ),
                         // HorizontalSpace(12),
@@ -302,7 +323,8 @@ class _HomepageState extends State<Homepage> {
                             NormalAppText(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w600,
-                                text: "9,878.90"),
+                                text:
+                                    "${(dashboardController.totalIncomeTax + dashboardController.totalPensionPaid.toInt())}"),
                             NormalAppText(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700,

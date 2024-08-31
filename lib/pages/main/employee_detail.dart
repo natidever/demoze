@@ -30,7 +30,11 @@ class EmployeeDetail extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  HeadingText('Management'),
+                  GestureDetector(
+                      onTap: () {
+                        Get.toNamed('/home');
+                      },
+                      child: HeadingText('Management')),
                   Container(
                     width: 140,
                     height: 24,
