@@ -84,12 +84,14 @@ class _HomepageState extends State<Homepage> {
             VerticalSpace(10),
             Row(
               children: [
-                DashboardCard(
-                    borderColor: thirdCardBorder,
-                    backgroudColor: thirdardBackgroud,
-                    textColor: Color.fromRGBO(48, 190, 182, 1),
-                    content: "${dashboardController.totalPensionPaid}",
-                    description: "Pension Tax Paid"),
+                Obx(() {
+                  return DashboardCard(
+                      borderColor: thirdCardBorder,
+                      backgroudColor: thirdardBackgroud,
+                      textColor: Color.fromRGBO(48, 190, 182, 1),
+                      content: "${dashboardController.totalPensionPaid}",
+                      description: "Pension Tax Paid");
+                }),
                 HorizontalSpace(20),
                 DashboardCard(
                     borderColor: fourthCardBorder,

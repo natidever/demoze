@@ -45,4 +45,6 @@ class DashboardController extends GetxController {
       print("Error fetching total pension paid: $e");
     }
   }
+
+  void taxSummary() {}
 }

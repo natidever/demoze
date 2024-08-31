@@ -1,4 +1,5 @@
 import 'package:Demoz/controller/company_controller.dart';
+import 'package:Demoz/controller/dashboard_controller.dart';
 import 'package:Demoz/controller/form_controller.dart';
 import 'package:Demoz/utils/constants.dart';
 import 'package:Demoz/widgets/custom_texts.dart';
@@ -13,6 +14,7 @@ class CompanyProfile extends StatelessWidget {
   final controller = Get.find<FormController>();
 
   final companyController = Get.find<CompanyController>();
+  final dashboardController = Get.find<DashboardController>();
 
   @override
   Widget build(BuildContext context) {
@@ -243,47 +245,49 @@ class CompanyProfile extends StatelessWidget {
                     fontSize: 15,
                     fontWeight: FontWeight.w500),
                 VerticalSpace(10),
-                Container(
-                  // color: Colors.red,
+                Obx(() {
+                  return Container(
+                    // color: Colors.red,
 
-                  width: 327,
-                  height: 54,
-                  child: TextFormField(
-                    obscureText: false,
+                    width: 327,
+                    height: 54,
+                    child: TextFormField(
+                      obscureText: false,
 
-                    // obscureText: true,
-                    decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(20),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                              color: Color.fromRGBO(241, 236, 236, 1)),
-                        ),
-                        prefixIconConstraints: BoxConstraints(
-                          maxHeight: 30,
-                        ),
-                        // prefixIcon: Padding(
-                        //   padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                        //   child: Image.asset('assets/icons/call.png'),
-                        // ),
-                        prefixIconColor: subTextColor,
-                        // suffixIcon: IconButton(
-                        //     onPressed: () {
-                        //       controller.TogglePasswordVissiblity();
-                        //     },
-                        //     icon: Icon(
-                        //         color: subTextColor,
-                        //         //Toggle between two icons based on the password is vissible or not
-                        //         controller.isPasswordVissible.value == false
-                        //             ? Icons.visibility
-                        //             : Icons.visibility_off)),
-                        hintStyle: GoogleFonts.sourceSans3(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400,
-                            color: subTextColor),
-                        hintText: '${company.numberOfEmployees}'),
-                  ),
-                ),
+                      // obscureText: true,
+                      decoration: InputDecoration(
+                          contentPadding: EdgeInsets.all(20),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(241, 236, 236, 1)),
+                          ),
+                          prefixIconConstraints: BoxConstraints(
+                            maxHeight: 30,
+                          ),
+                          // prefixIcon: Padding(
+                          //   padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                          //   child: Image.asset('assets/icons/call.png'),
+                          // ),
+                          prefixIconColor: subTextColor,
+                          // suffixIcon: IconButton(
+                          //     onPressed: () {
+                          //       controller.TogglePasswordVissiblity();
+                          //     },
+                          //     icon: Icon(
+                          //         color: subTextColor,
+                          //         //Toggle between two icons based on the password is vissible or not
+                          //         controller.isPasswordVissible.value == false
+                          //             ? Icons.visibility
+                          //             : Icons.visibility_off)),
+                          hintStyle: GoogleFonts.sourceSans3(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400,
+                              color: subTextColor),
+                          hintText: '${dashboardController.totalEmployees}'),
+                    ),
+                  );
+                }),
               ],
             );
           }),
